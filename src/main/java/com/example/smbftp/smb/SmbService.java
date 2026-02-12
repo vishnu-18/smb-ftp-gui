@@ -1,10 +1,13 @@
 package com.example.smbftp.smb;
 
-import com.hierynomus.smbj.*;
+import com.hierynomus.smbj.SMBClient;
 import com.hierynomus.smbj.auth.AuthenticationContext;
 import com.hierynomus.smbj.connection.Connection;
 import com.hierynomus.smbj.session.Session;
-import javafx.scene.control.*;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 
 public class SmbService {
 
@@ -15,9 +18,15 @@ public class SmbService {
 
             TreeItem<String> root = new TreeItem<>(host);
             root.setExpanded(true);
-            session.listShares().forEach(s -> root.getChildren().add(new TreeItem<>(s.getName())));
+
+            session.getConnection()
+                   .getServer()
+                   .listShares()
+                   .forEach(share -> root.getChildren().add(new TreeItem<>(share)));
+
             tree.setRoot(root);
             log.appendText("Loaded shares from " + host + "\n");
+
         } catch (Exception e) {
             log.appendText("SMB error: " + e.getMessage() + "\n");
         }
