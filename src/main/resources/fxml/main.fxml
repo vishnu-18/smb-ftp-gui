@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.smbftp.controller.MainController">
+    <top>
+        <MenuBar>
+            <Menu text="File"><MenuItem text="Exit" onAction="#exitApp"/></Menu>
+            <Menu text="FTP">
+                <MenuItem text="Start" onAction="#startFtp"/>
+                <MenuItem text="Stop" onAction="#stopFtp"/>
+                <MenuItem text="Add User" onAction="#addFtpUser"/>
+            </Menu>
+        </MenuBar>
+    </top>
+
+    <left>
+        <VBox spacing="6" style="-fx-padding:10;">
+            <Label text="SMB Host"/><TextField fx:id="smbHost"/>
+            <Label text="User"/><TextField fx:id="smbUser"/>
+            <Label text="Pass"/><PasswordField fx:id="smbPass"/>
+            <Button text="Browse SMB" onAction="#browseSmb"/>
+        </VBox>
+    </left>
+
+    <center>
+        <SplitPane>
+            <TreeView fx:id="smbTree" onMouseClicked="#onTreeSelect"/>
+            <ListView fx:id="fileList" onDragOver="#onDragOver" onDragDropped="#onDrop"/>
+            <TextArea fx:id="logArea"/>
+        </SplitPane>
+    </center>
+</BorderPane>
